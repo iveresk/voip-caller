@@ -23,18 +23,17 @@ func main() {
 	target := flag.String(
 		"t",
 		"localhost",
-		"Target url or target file to attack ",
-	)
+		"Target url or target file to attack ")
+	phrase := flag.String(
+		"p",
+		"sip:100@1.1.1.1",
+		"Your phrase to be shown")
 	debug := flag.Bool(
 		"d",
 		true,
 		"Flag to enable, disable logs")
-	flag.Parse()
 
-	phrase := flag.String(
-		"s",
-		"[YOUR PHRASE IS HERE]",
-		"Your phrase to be shown")
+	flag.Parse()
 
 	var ips []string
 	ipv4Regex := `^(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4})`
@@ -59,13 +58,12 @@ func main() {
 	for {
 		//checking if the parameter is URL or not
 		if !isFile {
-			log.Println("\n\033[34m[+] The target is in URL. Starting Sync Attack...")
+			log.Println("\n\033[34m[+] The target is in URL. Starting VoIP Attack...")
 			ch := make(chan string)
 			go printChannelData(ch, *debug)
-			go makeCall(*target, sport, *phrase, ch)
-			os.Exit(0)
+			makeCall(*target, sport, *phrase, ch)
 		} else {
-			log.Println("\n\u001B[34m[+] The target is in file. Starting Async Attack...")
+			log.Println("\n\u001B[34m[+] The target is in file. Starting Async VoIP Attack...")
 			for _, ip := range ips {
 				ch := make(chan string)
 				go printChannelData(ch, *debug)
