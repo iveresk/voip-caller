@@ -17,6 +17,5 @@ RUN go mod download
 ADD . ./
 COPY *.go ./src/
 COPY *.txt ./src/
-COPY exploit ./src/
-RUN go build -o /cve-2022-21907
-CMD [ "/cve-2022-21907", "-t", ${INPUT_FILE}, "-d", "false", "-s", "<YOUR_CALL_PHRASE>" ]
+RUN go build -o /voip-caller
+CMD [ "/voip-caller", "-t", ${INPUT_FILE}, "-d", "false", "-s", "<YOUR-PHRASE>" ]
