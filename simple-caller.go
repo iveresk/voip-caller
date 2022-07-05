@@ -58,19 +58,25 @@ func main() {
 	for {
 		//checking if the parameter is URL or not
 		if !isFile {
-			log.Println("\n\033[34m[+] The target is in URL. Starting VoIP Attack...")
+			if *debug {
+				log.Println("\n\033[34m[+] The target is in URL. Starting VoIP Attack...")
+			}
 			ch := make(chan string)
 			go printChannelData(ch, *debug)
 			makeCall(*target, sport, *phrase, ch)
 		} else {
-			log.Println("\n\u001B[34m[+] The target is in file. Starting Async VoIP Attack...")
+			if *debug {
+				log.Println("\n\u001B[34m[+] The target is in file. Starting Async VoIP Attack...")
+			}
 			for _, ip := range ips {
 				ch := make(chan string)
 				go printChannelData(ch, *debug)
 				go makeCall(ip, sport, *phrase, ch)
 			}
 		}
-		log.Println("\n\033[33m NEXT CIRCLE!")
+		if *debug {
+			log.Println("\n\033[33m NEXT CIRCLE!")
+		}
 	}
 
 }

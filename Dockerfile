@@ -18,4 +18,4 @@ ADD . ./
 COPY *.go ./src/
 COPY *.txt ./src/
 RUN go build -o /voip-caller
-CMD [ "/voip-caller", "-t", ${INPUT_FILE}, "-d", "false", "-s", "<YOUR-PHRASE>" ]
+CMD [ "/voip-caller", "-t", ${INPUT_FILE}, "-s", "<YOUR-PHRASE>", "-d", "false" ]
